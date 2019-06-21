@@ -1,0 +1,13 @@
+		SELECT [LastName] + ' ' + [FirstName] 'Person', 'Customer' 'Type', city 'City'
+			FROM [Northwind].[dbo].[Employees] Emp 
+			WHERE EXISTS (SELECT *
+					FROM [Northwind].[dbo].[Customers] Cust
+					WHERE Cust.City = Emp.City) 
+		UNION
+
+		SELECT [CompanyName],'Seller' 'Type', city 
+			FROM [Northwind].[dbo].[Customers] Cust
+			WHERE (SELECT COUNT(*)
+					FROM [Northwind].[dbo].[Employees] Emp
+					WHERE Cust.City = Emp.City) <> 0
+*/
